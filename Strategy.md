@@ -6,21 +6,21 @@
 
 ### Rules
 #### Card Draw
-Game has a set of $n$ players.
-Each player is numbered $1$ to $n$. $n$ must be positive.
+Game has a set of n players.
+Each player is numbered 1 to n. n must be positive.
 
-There are also $n$ decks of cards, again, each numbered 1 to $n$.
+There are also n decks of cards, again, each numbered 1 to n.
 
 Each player will hold a hand of 4 cards. 
 Each deck will also hold 4 cards.
 
-Both these hands and the decks will be drawn from a central **deck** which contains $8n$ cards.
+Both these hands and the decks will be drawn from a central **deck** which contains 8n cards.
 
-So, for a game of 4 players, there will be $8(4)$ cards $= 32$. 
+So, for a game of 4 players, there will be 8(4) cards = 32. 
 **Assumption:** Each player holds a hand of 4 cards, and a deck of 4 cards.
 
-Each **card** has a face value $v$, where $v$ is a non-negative integer.
-The face value is defined using a "input pack", which has $8n$ rows.
+Each **card** has a face value v, where v is a non-negative integer.
+The face value is defined using a "input pack", which has 8n rows.
 
 #### The Game
 If the game is not immediately won from the card draw, we continue.
@@ -82,7 +82,7 @@ There should also be a message printed to the terminal window when a player wins
 There should only be one player declaring it has won for any single game.
 If the game is won instantly, the output files should still be written for all players.
 
-In addition to player output files, there should be $n$ deck output files written at the end of the game. It should be named `deckn_output.txt` (replacing $n$ with the deck number) which should contain just one line of text detailing the contents of the deck at the **end of the game**.
+In addition to player output files, there should be n deck output files written at the end of the game. It should be named `deckn_output.txt` (replacing n with the deck number) which should contain just one line of text detailing the contents of the deck at the **end of the game**.
 ```Output
 deck2 contents: 1 3 3 7
 ```
