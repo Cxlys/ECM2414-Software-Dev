@@ -3,7 +3,6 @@
 - Card
 - Player
 - CardGame
-- some form of Main
 
 ### Rules
 #### Card Draw
