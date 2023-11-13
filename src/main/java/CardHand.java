@@ -1,17 +1,17 @@
-public class CardHand extends CardGroup{
-    public CardHand (ArrayList<int> deckList){
-        super(deckList)
+import java.util.ArrayList;
+
+public class CardHand extends ArrayList<Card> implements CardGroup {
+    public CardHand (ArrayList<Card> deckList){
+        this.addAll(deckList);
     }
 
     public boolean handEqual(){
-        int firstCard = deckList.get(0);
-        for (int i = 1; i < deckList.size(); i++) {
-            if (deckList.get(i) != firstCard) {
+        int first = this.get(0).getValue();
+        for (int i = 1; i < this.size(); i++) {
+            if (this.get(i).getValue() != first) {
                 return false;
             }
         }
         return true; 
     }
-
-
 }

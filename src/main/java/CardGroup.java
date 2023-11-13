@@ -1,9 +1,5 @@
-public class CardGroup{
-    private ArrayList<int> deckList = new ArrayList<>();
-    private string deckType;
+import java.util.ArrayList;
 
-    public CardGroup (ArrayList<int> deckList){
-        this.deckList = deckList;
-    }
-
+public interface CardGroup {
+    
 }
