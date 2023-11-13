@@ -5,20 +5,57 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class CardGame {
+    static int playerCount = 0;
+    static ArrayList<CardDeck> decks = new ArrayList<>();
+    static ArrayList<CardHand> hands = new ArrayList<>();
+    static ArrayList<Player> players = new ArrayList<>();
+
     public static void main(String[] args) {
         System.out.println("Welcome to the Card Game Simulation!");
-
-        int playerCount = 0;
-        ArrayList<Card> arrayPackValues = null;
-        
         Scanner scanner = new Scanner(System.in);
 
-        playerCount = waitForValidPlayerCount(scanner);
-        scanner.nextLine();
-
-        arrayPackValues = waitForInputPack(scanner, playerCount);
-
+        // Wait for user input for both player count and input pack
+        playerCount = waitForValidPlayerCount(scanner); scanner.nextLine();
+        ArrayList<Card> cards = waitForValidInputPack(scanner, playerCount); 
         scanner.close();
+
+        // Initialise objects
+        initialiseAllGroupObjects(cards);
+    }
+
+    static void initialiseAllGroupObjects(ArrayList<Card> cards) {
+        // Creating Player objects
+        for (int i = 0; i < cards.size() / 2;) {
+            CardHand hand = new CardHand(
+                new ArrayList<Card>(cards.subList(i, i + 4))
+            );
+            hands.add(hand);
+
+            Player player = new Player(hand);
+            players.add(player);
+
+            i += 4;
+        }
+
+        // Creating Deck objects
+        for (int i = cards.size() / 2; i < cards.size();) {
+            CardDeck deck = new CardDeck(
+                new ArrayList<Card>(cards.subList(i, i + 4))
+            );
+            decks.add(deck);
+
+            i+=4;
+        }
+
+        // Creating circular structure
+        for (int i = 0; i < hands.size(); i++) {
+            CardHand hand = hands.get(i);
+            
+            hand.setLeftDeck(decks.get(i));
+            hand.setRightDeck(decks.get(decks.size() - i-1));
+
+            System.out.println(hand.getLeftDeck() + " " + hand.getRightDeck());
+        }
     }
     
     static int waitForValidPlayerCount(Scanner scanner) {
@@ -36,7 +73,7 @@ public class CardGame {
         }
     }
 
-    static ArrayList<Card> waitForInputPack(Scanner scanner, int playerCount) {
+    static ArrayList<Card> waitForValidInputPack(Scanner scanner, int playerCount) {
         while (true) {
             System.out.println("\nPlease enter the location of the input pack.");
             File file = null;
@@ -58,7 +95,6 @@ public class CardGame {
         }
     } 
 
-
     /**
      * Checks a given File object for input pack validity.
      *  
@@ -66,6 +102,7 @@ public class CardGame {
      * @param playerCount
      * @return True if file exists in the environment, pack has 2n lines (n = playerCount) and all lines are positive integers
      * @throws IOException
+     * @throws InvalidInputPackException
      */
     static ArrayList<Card> getInputPack(File pack, int playerCount) throws IOException, InvalidInputPackException {
         try (Scanner rdr = new Scanner(new FileReader(pack))) {
