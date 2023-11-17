@@ -21,13 +21,13 @@ public class CardGame {
         initialiseAllGroupObjects(cards);
 
         // Start game
-        
+        for (Player player : players) player.start();
     }
 
     static void initialiseAllGroupObjects(ArrayList<Card> cards) {
         ArrayList<CardHand> hands = new ArrayList<>();
         // Creating Player objects
-        for (int i = 0, j = 0; i < cards.size() / 2;) {
+        for (int i = 0, j = 1; i < cards.size() / 2;) {
             CardHand hand = new CardHand(new ArrayList<Card>(cards.subList(i, i + 4)));
             hands.add(hand);
 
@@ -39,7 +39,7 @@ public class CardGame {
 
         ArrayList<CardDeck> decks = new ArrayList<>();
         // Creating Deck objects
-        for (int i = cards.size() / 2, j = 0; i < cards.size();) {
+        for (int i = cards.size() / 2, j = 1; i < cards.size();) {
             CardDeck deck = new CardDeck(
                 new ArrayList<Card>(cards.subList(i, i + 4)),
                 j++

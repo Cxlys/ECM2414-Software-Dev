@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-import java.io.FileWriter;
 
 public class Player extends Thread {
     CardHand hand;
@@ -29,7 +28,7 @@ public class Player extends Thread {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        fileBuffer.append("player " + playerID + "initial hand " + hand.toString() + "\n");   
+        fileBuffer.append("player " + playerID + " initial hand " + hand.toString() + "\n");   
   }
 
   public void run() {
@@ -42,9 +41,10 @@ public class Player extends Thread {
         int removedCardIndex = hand.bestCardToRemove(playerID);
         Card removedCard = hand.get(removedCardIndex);
         hand.addToRightDeck(removedCardIndex);
-        fileBuffer.append("Player " + playerID + " draws a " + addedCard.getValue() + " from deck" + playerID + "\n");
-        fileBuffer.append("Player " + playerID + " discards a " + removedCard.getValue() + " to deck" + (playerID +  1) + "\n");
-        System.out.println(fileBuffer);
+        fileBuffer.append("Player " + playerID + " draws a " + addedCard.getValue() + " from deck " + playerID + "\n");
+        fileBuffer.append("Player " + playerID + " discards a " + removedCard.getValue() + " to deck " + (playerID +  1) + "\n");
+        fileBuffer.append("player " + playerID + " hand " + hand.toString() + "\n"); 
+        System.out.println(fileBuffer.toString());
       }
     }
     catch (InterruptedException e) {

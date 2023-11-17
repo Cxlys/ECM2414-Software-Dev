@@ -48,7 +48,12 @@ public class CardHand extends ArrayList<Card> {
     public CardDeck getLeftDeck(){
         return leftDeck;
     }
+
+    @Override
     public String toString(){
-        return (this.get(0) + " " + this.get(1) + " " + this.get(2) + " " + this.get(3));
+        return (this.get(0).getValue() + " " + 
+                this.get(1).getValue() + " " + 
+                this.get(2).getValue() + " " + 
+                this.get(3).getValue());
     }
 }
