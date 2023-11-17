@@ -27,13 +27,11 @@ public class CardGame {
     static void initialiseAllGroupObjects(ArrayList<Card> cards) {
         ArrayList<CardHand> hands = new ArrayList<>();
         // Creating Player objects
-        for (int i = 0; i < cards.size() / 2;) {
-            CardHand hand = new CardHand(
-                new ArrayList<Card>(cards.subList(i, i + 4))
-            );
+        for (int i = 0, j = 0; i < cards.size() / 2;) {
+            CardHand hand = new CardHand(new ArrayList<Card>(cards.subList(i, i + 4)));
             hands.add(hand);
 
-            Player player = new Player(hand, 1);
+            Player player = new Player(hand, j++);
             players.add(player);
 
             i += 4;
@@ -41,13 +39,14 @@ public class CardGame {
 
         ArrayList<CardDeck> decks = new ArrayList<>();
         // Creating Deck objects
-        for (int i = cards.size() / 2; i < cards.size();) {
+        for (int i = cards.size() / 2, j = 0; i < cards.size();) {
             CardDeck deck = new CardDeck(
-                new ArrayList<Card>(cards.subList(i, i + 4))
+                new ArrayList<Card>(cards.subList(i, i + 4)),
+                j++
             );
             decks.add(deck);
 
-            i+=4;
+            i+=4; j++;
         }
 
         System.out.println(decks.toString());
@@ -58,8 +57,6 @@ public class CardGame {
             
             hand.setLeftDeck(decks.get(i));
             hand.setRightDeck(decks.get((i + 1) % decks.size()));
-
-            System.out.println(hand.getLeftDeck() + " " + hand.getRightDeck());
         }
     }
     

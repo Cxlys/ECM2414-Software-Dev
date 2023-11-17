@@ -1,23 +1,15 @@
 import java.util.ArrayList;
-import java.util.Stack;
+import java.util.concurrent.LinkedBlockingQueue;
 
-public class CardDeck {
-    Stack<Card> cards = new Stack<>();
-
-    public CardDeck (ArrayList<Card> cards){
-        for (Card card : cards) {
-            this.cards.push(card);
-        }
-    }
-    public CardDeck (Stack<Card> cards) {
-        this.cards = cards;
+public class CardDeck extends LinkedBlockingQueue<Card>{
+    int index;
+    
+    public CardDeck (ArrayList<Card> cards, int index){
+        super(cards);
+        this.index = index;
     }
 
-    public synchronized Card push(Card card) {
-        return cards.push(card);
-    }
-
-    public synchronized Card pop() {
-        return cards.pop();
+    public int getIndex() {
+        return index;
     }
  }
