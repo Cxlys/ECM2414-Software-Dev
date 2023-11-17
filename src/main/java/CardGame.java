@@ -6,8 +6,6 @@ import java.io.IOException;
 
 public class CardGame {
     static int playerCount = 0;
-    static ArrayList<CardDeck> decks = new ArrayList<>();
-    static ArrayList<CardHand> hands = new ArrayList<>();
     static ArrayList<Player> players = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -21,9 +19,13 @@ public class CardGame {
 
         // Initialise objects
         initialiseAllGroupObjects(cards);
+
+        // Start game
+        
     }
 
     static void initialiseAllGroupObjects(ArrayList<Card> cards) {
+        ArrayList<CardHand> hands = new ArrayList<>();
         // Creating Player objects
         for (int i = 0; i < cards.size() / 2;) {
             CardHand hand = new CardHand(
@@ -31,12 +33,13 @@ public class CardGame {
             );
             hands.add(hand);
 
-            Player player = new Player(hand);
+            Player player = new Player(hand, 1);
             players.add(player);
 
             i += 4;
         }
 
+        ArrayList<CardDeck> decks = new ArrayList<>();
         // Creating Deck objects
         for (int i = cards.size() / 2; i < cards.size();) {
             CardDeck deck = new CardDeck(
@@ -47,12 +50,14 @@ public class CardGame {
             i+=4;
         }
 
+        System.out.println(decks.toString());
+
         // Creating circular structure
         for (int i = 0; i < hands.size(); i++) {
             CardHand hand = hands.get(i);
             
             hand.setLeftDeck(decks.get(i));
-            hand.setRightDeck(decks.get(decks.size() - i-1));
+            hand.setRightDeck(decks.get((i + 1) % decks.size()));
 
             System.out.println(hand.getLeftDeck() + " " + hand.getRightDeck());
         }
