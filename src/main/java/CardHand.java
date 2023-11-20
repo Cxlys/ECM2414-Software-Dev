@@ -31,22 +31,35 @@ public class CardHand extends ArrayList<Card> {
                                             .map(n -> n.getRoundCount())
                                             .max(Integer::compare)
                                             .orElse(null);
+
         return cardToRemove;
     }
 
     public void addToRightDeck(int index) {
-        rightDeck.add(this.remove(index));
+        try {
+            rightDeck.put(this.remove(index));
+        } catch (InterruptedException e) { }
     }
 
     public Card removeFromLeftDeck() {
-        Card newCard = leftDeck.remove();
-        newCard.resetRoundCount();
-        this.add(newCard);
-        return newCard;
+        try { 
+            Card card = leftDeck.take();
+
+            this.add(card);
+            card.resetRoundCount();
+
+            return card;
+        } catch (InterruptedException e) {
+            return null;
+        }
     }
 
-    public CardDeck getLeftDeck(){
+    public CardDeck getLeftDeck() {
         return leftDeck;
+    }
+
+    public CardDeck getRightDeck() {
+        return rightDeck;
     }
 
     @Override

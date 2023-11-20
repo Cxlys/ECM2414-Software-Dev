@@ -8,7 +8,7 @@ public class CardGame {
     static int playerCount = 0;
     static ArrayList<Player> players = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("Welcome to the Card Game Simulation!");
         Scanner scanner = new Scanner(System.in);
 
