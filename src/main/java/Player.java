@@ -1,15 +1,19 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Player extends Thread {
+    static Thread mainThread = Thread.currentThread();
+
     CardHand hand;
     int playerID;
-
     File file;
 
     StringBuilder gameUpdateStream = new StringBuilder();
     
-    public Player(CardHand hand, int playerID) {
+    public Player(ThreadGroup group, CardHand hand, int playerID) {
+        super(group, String.valueOf(playerID));
+
         this.hand = hand;
         this.playerID = playerID;
         this.file = new File("player" + playerID + "_output.txt");
@@ -56,12 +60,12 @@ public class Player extends Thread {
                 gameUpdateStream.append("player" + playerID + " discards a " + removedCard.getValue() + " to deck " + (playerID + 1) + "\n");
                 gameUpdateStream.append("player" + playerID + " current hand is " + hand.toString() + "\n");
             }
-        } catch (InterruptedException e) {            
+        } catch (InterruptedException e) {   
             this.handleGameLoss(1); // 1 is a placeholder
         }
 
-        System.out.println(gameUpdateStream.toString());
         this.handleGameWin();
+        this.printToOutputFile();
     }
 
     void handleGameLoss(int winningPlayerID) {
@@ -69,21 +73,30 @@ public class Player extends Thread {
             "player" + winningPlayerID + 
             " has informed player" + playerID + 
             " that player" + winningPlayerID + 
-            " has won"
+            " has won\n"
         );
-        gameUpdateStream.append("player" + playerID + " exits");
-        gameUpdateStream.append("player" + playerID + " final hand: " + hand.toString());
+        gameUpdateStream.append("player" + playerID + " exits\n");
+        gameUpdateStream.append("player" + playerID + " final hand: " + hand.toString() + "\n");
     }
 
     void handleGameWin() {
         // Somehow find a way to notify all other threads that we have won.
         // First thoughts is using a notify/wait solution? But we need the main thread to notify
         // How do we get the main thread to know the winner?
-        // Perhaps we add the players to our card decks? That way we can notify the objects themselves that we have won.
         // ....
+        this.getThreadGroup().interrupt();
+        System.out.println(gameUpdateStream);
 
-        gameUpdateStream.append("player" + playerID + " wins");
-        gameUpdateStream.append("player" + playerID + "exits");
-        gameUpdateStream.append("player" + playerID + " final hand: " + hand.toString());
+        gameUpdateStream.append("player" + playerID + " wins\n");
+        gameUpdateStream.append("player" + playerID + " exits\n");
+        gameUpdateStream.append("player" + playerID + " final hand: " + hand.toString() + "\n");
+    }
+
+    void printToOutputFile() {
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.append(gameUpdateStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

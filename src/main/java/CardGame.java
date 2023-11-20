@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileReader;
@@ -7,6 +8,7 @@ import java.io.IOException;
 public class CardGame {
     static int playerCount = 0;
     static ArrayList<Player> players = new ArrayList<>();
+    static ThreadGroup playerThreads = new ThreadGroup("Player Threads");
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Welcome to the Card Game Simulation!");
@@ -31,7 +33,7 @@ public class CardGame {
             CardHand hand = new CardHand(new ArrayList<Card>(cards.subList(i, i + 4)));
             hands.add(hand);
 
-            Player player = new Player(hand, j++);
+            Player player = new Player(playerThreads, hand, j++);
             players.add(player);
 
             i += 4;
