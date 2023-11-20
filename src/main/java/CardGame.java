@@ -51,8 +51,6 @@ public class CardGame {
             i+=4; j++;
         }
 
-        System.out.println(decks.toString());
-
         // Creating circular structure
         for (int i = 0; i < hands.size(); i++) {
             CardHand hand = hands.get(i);

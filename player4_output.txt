@@ -8,9 +8,6 @@ player4 current hand is 6 7 1 1
 player4 draws a 1 from deck 4
 player4 discards a 6 to deck 5
 player4 current hand is 7 1 1 1
-player4 draws a 1 from deck 4
-player4 discards a 7 to deck 5
-player4 current hand is 1 1 1 1
-player4 wins
-player4exits
-player4 final hand: 1 1 1 1
+player1 has informed player4 that player1 has won
+player4 exits
+player4 final hand: 7 1 1 1

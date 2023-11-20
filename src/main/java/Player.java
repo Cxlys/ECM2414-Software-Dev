@@ -3,12 +3,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Player extends Thread {
-    static Thread mainThread = Thread.currentThread();
-
     CardHand hand;
     int playerID;
     File file;
 
+    // I really do not like this solution, but I've been doing this for like 
+    // nearly 3 hours now and I want to get off Mr. Bones' Wild Ride 
+    static Integer winningPlayerID = null;
     StringBuilder gameUpdateStream = new StringBuilder();
     
     public Player(ThreadGroup group, CardHand hand, int playerID) {
@@ -44,10 +45,12 @@ public class Player extends Thread {
     public void run() {
         try {
             for (;;) {
-                if (Thread.currentThread().isInterrupted()) 
-                    throw new InterruptedException();
-                if (hand.handEqual()) 
-                    break;
+                synchronized (this) {
+                    if (winningPlayerID != null) 
+                        throw new InterruptedException();
+                    if (hand.handEqual()) 
+                        break;
+                }
         
                 Card addedCard = hand.removeFromLeftDeck();
         
@@ -61,14 +64,16 @@ public class Player extends Thread {
                 gameUpdateStream.append("player" + playerID + " current hand is " + hand.toString() + "\n");
             }
         } catch (InterruptedException e) {   
-            this.handleGameLoss(1); // 1 is a placeholder
+            this.handleGameLoss();
+            this.printToOutputFile();
+            return;
         }
 
         this.handleGameWin();
         this.printToOutputFile();
     }
 
-    void handleGameLoss(int winningPlayerID) {
+    void handleGameLoss() {
         gameUpdateStream.append(
             "player" + winningPlayerID + 
             " has informed player" + playerID + 
@@ -80,12 +85,14 @@ public class Player extends Thread {
     }
 
     void handleGameWin() {
-        // Somehow find a way to notify all other threads that we have won.
-        // First thoughts is using a notify/wait solution? But we need the main thread to notify
-        // How do we get the main thread to know the winner?
-        // ....
-        this.getThreadGroup().interrupt();
-        System.out.println(gameUpdateStream);
+        // We update winning player ID, to signify to all other threads
+        // that this thread needs to close.
+
+        // I still hate this solution, as we have not used any thread methods except start.
+        // I think we should still look for an interrupt() solution, as whenever two players
+        // win at the same time, they both try and "win", and synchronised(this) is slow.
+        // High likelihood I am also overthinking this
+        winningPlayerID = playerID;
 
         gameUpdateStream.append("player" + playerID + " wins\n");
         gameUpdateStream.append("player" + playerID + " exits\n");

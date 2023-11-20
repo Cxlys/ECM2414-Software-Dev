@@ -12,5 +12,5 @@ player1 draws a 1 from deck 1
 player1 discards a 4 to deck 2
 player1 current hand is 1 1 1 1
 player1 wins
-player1exits
+player1 exits
 player1 final hand: 1 1 1 1
