@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileReader;
@@ -27,11 +26,9 @@ public class CardGame {
     }
 
     static void initialiseAllGroupObjects(ArrayList<Card> cards) {
-        ArrayList<CardHand> hands = new ArrayList<>();
         // Creating Player objects
         for (int i = 0, j = 1; i < cards.size() / 2;) {
-            CardHand hand = new CardHand(new ArrayList<Card>(cards.subList(i, i + 4)));
-            hands.add(hand);
+            ArrayList<Card> hand = new ArrayList<Card>(cards.subList(i, i + 4));
 
             Player player = new Player(playerThreads, hand, j++);
             players.add(player);
@@ -47,16 +44,16 @@ public class CardGame {
                 j++
             );
             decks.add(deck);
-
-            i+=4; j++;
+ 
+            i += 4;
         }
 
         // Creating circular structure
-        for (int i = 0; i < hands.size(); i++) {
-            CardHand hand = hands.get(i);
+        for (int i = 0; i < players.size(); i++) {
+            Player relevantPlayer = players.get(i);
             
-            hand.setLeftDeck(decks.get(i));
-            hand.setRightDeck(decks.get((i + 1) % decks.size()));
+            relevantPlayer.setLeftDeck(decks.get(i));
+            relevantPlayer.setRightDeck(decks.get((i + 1) % decks.size()));
         }
     }
     
