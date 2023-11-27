@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class CardGame {
-    static int playerCount = 0;
     static ArrayList<Player> players = new ArrayList<>();
     static ThreadGroup playerThreads = new ThreadGroup("Player Threads");
 
@@ -14,7 +13,7 @@ public class CardGame {
         Scanner scanner = new Scanner(System.in);
 
         // Wait for user input for both player count and input pack
-        playerCount = waitForValidPlayerCount(scanner); scanner.nextLine();
+        int playerCount = waitForValidPlayerCount(scanner); scanner.nextLine();
         ArrayList<Card> cards = waitForValidInputPack(scanner, playerCount); 
         scanner.close();
 
@@ -121,7 +120,7 @@ public class CardGame {
                 buffer.add(new Card(next));
             }
             if (!(buffer.size() == playerCount * 8)) {
-                System.out.println("Too many lines in the file!");
+                System.out.println("Incorrect line count!");
                 throw new InvalidInputPackException();
             } 
             System.out.println("Valid file successfully found!");

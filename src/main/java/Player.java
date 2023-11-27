@@ -23,13 +23,18 @@ public class Player extends Thread {
         }
 
         int bestCardToRemove(int userID){
-            // TODO: Fix this method, only returns least common card
-            int cardToRemove = this.stream().filter(x -> x.getValue() != userID)
-                                                .map(n -> n.getRoundCount())
-                                                .max(Integer::compare)
-                                                .orElse(null);
+            int maxRoundCount = -1;
+            int maxIndex = 0;
 
-            return cardToRemove;
+            for (int i = 0; i < 4; i++) {
+                Card card = this.get(i);
+                if (card.getValue() != userID && card.getRoundCount() > maxRoundCount) {
+                    maxRoundCount = card.getRoundCount();
+                    maxIndex = i;
+                }
+            }
+
+            return maxIndex;
         }
 
         /**
@@ -129,6 +134,8 @@ public class Player extends Thread {
                 gameUpdateStream.append("player" + denomination + " draws a " + addedCard.getValue() + " from deck " + denomination + "\n");
                 gameUpdateStream.append("player" + denomination + " discards a " + removedCard.getValue() + " to deck " + (denomination + 1) + "\n");
                 gameUpdateStream.append("player" + denomination + " current hand is " + hand.toString() + "\n");
+
+                for (Card card : hand) card.incrementRoundCount();
             }
         } catch (InterruptedException e) {   
             this.handleGameLoss();

@@ -35,7 +35,7 @@ public class CardDeck extends LinkedBlockingQueue<Card>{
         return index;
     }
 
-    public void printLogFile() {
+    void printLogFile() {
         try (FileWriter writer = new FileWriter(logFile)) {
             writer.append("deck" + index + " contents: " + this.toString());
         } catch (IOException e) {
