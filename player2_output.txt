@@ -14,6 +14,24 @@ player2 current hand is 5 6 7 8
 player2 draws a 2 from deck 2
 player2 discards a 5 to deck 3
 player2 current hand is 6 7 8 2
+player2 draws a 3 from deck 2
+player2 discards a 6 to deck 3
+player2 current hand is 7 8 2 3
+player2 draws a 4 from deck 2
+player2 discards a 7 to deck 3
+player2 current hand is 8 2 3 4
+player2 draws a 2 from deck 2
+player2 discards a 8 to deck 3
+player2 current hand is 2 3 4 2
+player2 draws a 3 from deck 2
+player2 discards a 3 to deck 3
+player2 current hand is 2 4 2 3
+player2 draws a 4 from deck 2
+player2 discards a 4 to deck 3
+player2 current hand is 2 2 3 4
+player2 draws a 5 from deck 2
+player2 discards a 3 to deck 3
+player2 current hand is 2 2 4 5
 player1 has informed player2 that player1 has won
 player2 exits
-player2 final hand: 6 7 8 2
+player2 final hand: 2 2 4 5

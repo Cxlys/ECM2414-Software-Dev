@@ -37,16 +37,21 @@ public class Player extends Thread {
             return maxIndex;
         }
 
-        /**
-         * Discards the most accurate card to the left deck and returns the card added to the left deck.
-         */
         Card handleCardDraw(int cardToAdd) throws InterruptedException {
-            // Adding card onto the right
-            Card card;
-            card = leftDeck.take();
+            /* Getting our card to put on the left.
+             * If we don't do this up here, the InterruptedException thrown by take() gets 
+             * thrown AFTER we've already discarded one of our cards, leaving us with an 
+             * uneven hand and giving us an IndexOutOfBounds error. 
+             * 
+             * The InterruptedException only throws when there are no cards in the left deck, and
+             * there never *will* be any cards in the left deck. Therefore, we can assume that
+             * this means the game is already over, and we can exit.
+             */
+            Card card = leftDeck.take();
 
+            // Adding card onto the right
             rightDeck.put(this.remove(cardToAdd));
-            
+
             this.add(card);
             card.resetRoundCount();
 

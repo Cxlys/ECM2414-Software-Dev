@@ -38,6 +38,6 @@ player4 current hand is 4 4 5 6
 player4 draws a 7 from deck 4
 player4 discards a 5 to deck 1
 player4 current hand is 4 4 6 7
-playernull has informed player4 that playernull has won
+player1 has informed player4 that player1 has won
 player4 exits
 player4 final hand: 4 4 6 7
