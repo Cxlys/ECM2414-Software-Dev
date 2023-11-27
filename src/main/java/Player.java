@@ -107,16 +107,16 @@ public class Player extends Thread {
             for (;;) {
                 // synchronized (this) wouldn't work, but this works perfectly? Not complaining
                 synchronized (Player.class) {
-                    System.out.println("Thread " + Thread.currentThread().getName() + " has started synchronised block");
+                    // System.out.println("Thread " + Thread.currentThread().getName() + " has started synchronised block");
                     if (Thread.interrupted()) {
                         throw new InterruptedException();
                     }
                     if (hand.handEqual()) {
-                        System.out.println("Thread " + Thread.currentThread().getName() + " has started win game sequence");
+                        // System.out.println("Thread " + Thread.currentThread().getName() + " has started win game sequence");
                         this.handleGameWin();
                         break;
                     }
-                    System.out.println("Thread " + Thread.currentThread().getName() + " has ended synchronised block");
+                    // System.out.println("Thread " + Thread.currentThread().getName() + " has ended synchronised block");
                 }
 
                 int removeIndex = hand.bestCardToRemove(denomination);
@@ -148,6 +148,7 @@ public class Player extends Thread {
         // We update winning player ID, to signify to all other threads
         // that this thread needs to close.
         System.out.println("player " + denomination + " has won");
+        this.getThreadGroup().interrupt();
         winningPlayerID = denomination;
 
         gameUpdateStream.append("player" + denomination + " wins\n");
