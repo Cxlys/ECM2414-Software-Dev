@@ -40,21 +40,17 @@ public class Player extends Thread {
         /**
          * Discards the most accurate card to the left deck and returns the card added to the left deck.
          */
-        Card handleCardDraw(int cardToAdd) {
-            try {
-                // Adding card onto the right
-                rightDeck.put(this.remove(cardToAdd));
+        Card handleCardDraw(int cardToAdd) throws InterruptedException {
+            // Adding card onto the right
+            Card card;
+            card = leftDeck.take();
 
-                // Removing card from the left
-                Card card = leftDeck.take();
+            rightDeck.put(this.remove(cardToAdd));
+            
+            this.add(card);
+            card.resetRoundCount();
 
-                this.add(card);
-                card.resetRoundCount();
-
-                return card;
-            } catch (InterruptedException e) {
-                return null;
-            }
+            return card;
         }
 
         CardDeck getLeftDeck() {
@@ -130,11 +126,11 @@ public class Player extends Thread {
                 int removeIndex = hand.bestCardToRemove(denomination);
                 Card removedCard = hand.get(removeIndex);
                 Card addedCard = hand.handleCardDraw(removeIndex);
-        
-                gameUpdateStream.append("player" + denomination + " draws a " + addedCard.getValue() + " from deck " + denomination + "\n");
-                gameUpdateStream.append("player" + denomination + " discards a " + removedCard.getValue() + " to deck " + (denomination + 1) + "\n");
-                gameUpdateStream.append("player" + denomination + " current hand is " + hand.toString() + "\n");
 
+                gameUpdateStream.append("player" + denomination + " draws a " + addedCard.getValue() + " from deck " + denomination + "\n");
+                gameUpdateStream.append("player" + denomination + " discards a " + removedCard.getValue() + " to deck " + ((denomination) % 4 + 1) + "\n");
+                gameUpdateStream.append("player" + denomination + " current hand is " + hand.toString() + "\n");
+    
                 for (Card card : hand) card.incrementRoundCount();
             }
         } catch (InterruptedException e) {   
@@ -157,8 +153,8 @@ public class Player extends Thread {
     void handleGameWin() {
         // We update winning player ID, to signify to all other threads
         // that this thread needs to close.
-        System.out.println("player " + denomination + " has won");
         this.getThreadGroup().interrupt();
+        System.out.println("player " + denomination + " has won");
         winningPlayerID = denomination;
 
         gameUpdateStream.append("player" + denomination + " wins\n");
