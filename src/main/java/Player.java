@@ -36,16 +36,20 @@ public class Player extends Thread {
          * Discards the most accurate card to the left deck and returns the card added to the left deck.
          */
         Card handleCardDraw(int cardToAdd) {
-            // Adding card onto the right
-            rightDeck.add(this.remove(cardToAdd));
+            try {
+                // Adding card onto the right
+                rightDeck.put(this.remove(cardToAdd));
 
-            // Removing card from the left
-            Card card = leftDeck.poll();
+                // Removing card from the left
+                Card card = leftDeck.take();
 
-            this.add(card);
-            card.resetRoundCount();
+                this.add(card);
+                card.resetRoundCount();
 
-            return card;
+                return card;
+            } catch (InterruptedException e) {
+                return null;
+            }
         }
 
         CardDeck getLeftDeck() {
@@ -105,7 +109,6 @@ public class Player extends Thread {
     public void run() {
         try {
             for (;;) {
-                // synchronized (this) wouldn't work, but this works perfectly? Not complaining
                 synchronized (Player.class) {
                     // System.out.println("Thread " + Thread.currentThread().getName() + " has started synchronised block");
                     if (Thread.interrupted()) {

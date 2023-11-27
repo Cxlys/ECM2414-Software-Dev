@@ -1,4 +1,16 @@
-player1 initial hand 1 1 1 1
-player1 wins
+player1 initial hand 1 2 3 4
+player1 draws a 1 from deck 1
+player1 discards a 1 to deck 2
+player1 current hand is 2 3 4 1
+player1 draws a 1 from deck 1
+player1 discards a 2 to deck 2
+player1 current hand is 3 4 1 1
+player1 draws a 1 from deck 1
+player1 discards a 3 to deck 2
+player1 current hand is 4 1 1 1
+player1 draws a 1 from deck 1
+player1 discards a 4 to deck 2
+player1 current hand is 1 1 1 1
+player2 has informed player1 that player2 has won
 player1 exits
 player1 final hand: 1 1 1 1

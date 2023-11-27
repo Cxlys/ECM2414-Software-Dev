@@ -2,9 +2,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.concurrent.LinkedBlockingQueue;
 
-public class CardDeck extends LinkedList<Card>{
+public class CardDeck extends LinkedBlockingQueue<Card>{
     int index;
     File logFile;
     
