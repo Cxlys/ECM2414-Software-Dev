@@ -17,12 +17,6 @@ player2 current hand is 2 2 4 2
 player2 draws a 3 from deck 2
 player2 discards a 4 to deck 3
 player2 current hand is 2 2 2 3
-player2 draws a 4 from deck 2
-player2 discards a 3 to deck 3
-player2 current hand is 2 2 2 4
-player2 draws a 2 from deck 2
-player2 discards a 4 to deck 3
-player2 current hand is 2 2 2 2
-player2 wins
+player3 has informed player2 that player3 has won
 player2 exits
-player2 final hand: 2 2 2 2
+player2 final hand: 2 2 2 3

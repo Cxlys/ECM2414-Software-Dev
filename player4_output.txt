@@ -1,4 +1,0 @@
-player4 initial hand 1 2 3 4
-player2 has informed player4 that player2 has won
-player4 exits
-player4 final hand: 1 2 3 4
