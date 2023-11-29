@@ -4,7 +4,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @IncludeCategory(ThreadTests.class)
-@Suite.SuiteClasses({PlayerThreadWinsInstantlyTest.class})
+@Suite.SuiteClasses({PlayerWinsInstantlyTest.class, PlayerTest.class})
 public class TestSuite {
     // Empty
 }

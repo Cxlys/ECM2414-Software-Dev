@@ -1,10 +1,7 @@
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.After;
-import org.junit.AfterClass;
 
 import org.junit.Assert;
 import static org.junit.Assert.*;
@@ -18,21 +15,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Category({ThreadTests.class})
-public class PlayerThreadWinsInstantlyTest {
-    Card c1;
-    Card c2;
-    Card c3;
-    Card c4;
+public class PlayerWinsInstantlyTest {
     Player player;
-
     BufferedReader reader;
 
     @Before
     public void setUpClass() {
-        c1 = new Card(1);
-        c2 = new Card(1);
-        c3 = new Card(1);
-        c4 = new Card(1);
+        Card c1 = new Card(1);
+        Card c2 = new Card(1);
+        Card c3 = new Card(1);
+        Card c4 = new Card(1);
 
         Card[] cs = {c1,c2,c3,c4};
         ArrayList<Card> cards = new ArrayList<>(Arrays.asList(cs));
@@ -55,6 +47,7 @@ public class PlayerThreadWinsInstantlyTest {
     public void tearDown() {
         try {
             reader.close();
+            reader = null;
         } catch (IOException e) {
             e.printStackTrace();
             fail("Reader seems to have completely filled up the file system?");

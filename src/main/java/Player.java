@@ -151,8 +151,6 @@ public class Player extends Thread {
             " that player" + winningPlayerID + 
             " has won\n"
         );
-        gameUpdateStream.append("player" + denomination + " exits\n");
-        gameUpdateStream.append("player" + denomination + " final hand: " + hand.toString() + "\n");
     }
 
     void handleGameWin() {
@@ -163,11 +161,13 @@ public class Player extends Thread {
         winningPlayerID = denomination;
 
         gameUpdateStream.append("player" + denomination + " wins\n");
-        gameUpdateStream.append("player" + denomination + " exits\n");
-        gameUpdateStream.append("player" + denomination + " final hand: " + hand.toString() + "\n");
+        
     }
 
     void printToOutputFile() {
+        gameUpdateStream.append("player" + denomination + " exits\n");
+        gameUpdateStream.append("player" + denomination + " final hand: " + hand.toString() + "\n");
+        
         try (FileWriter writer = new FileWriter(file)) {
             writer.append(gameUpdateStream);
         } catch (IOException e) {

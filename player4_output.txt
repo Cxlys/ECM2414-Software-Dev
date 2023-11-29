@@ -1,43 +1,16 @@
-player4 initial hand 5 6 7 8
-player4 draws a 5 from deck 4
-player4 discards a 5 to deck 1
-player4 current hand is 6 7 8 5
-player4 draws a 6 from deck 4
-player4 discards a 6 to deck 1
-player4 current hand is 7 8 5 6
-player4 draws a 7 from deck 4
-player4 discards a 7 to deck 1
-player4 current hand is 8 5 6 7
-player4 draws a 8 from deck 4
-player4 discards a 8 to deck 1
-player4 current hand is 5 6 7 8
+player4 initial hand 1 2 3 4
 player4 draws a 1 from deck 4
-player4 discards a 5 to deck 1
-player4 current hand is 6 7 8 1
-player4 draws a 2 from deck 4
-player4 discards a 6 to deck 1
-player4 current hand is 7 8 1 2
-player4 draws a 4 from deck 4
-player4 discards a 7 to deck 1
-player4 current hand is 8 1 2 4
-player4 draws a 1 from deck 4
-player4 discards a 8 to deck 1
-player4 current hand is 1 2 4 1
-player4 draws a 2 from deck 4
 player4 discards a 1 to deck 1
-player4 current hand is 2 4 1 2
+player4 current hand is 2 3 4 1
+player4 draws a 2 from deck 4
+player4 discards a 2 to deck 1
+player4 current hand is 3 4 1 2
+player4 draws a 3 from deck 4
+player4 discards a 3 to deck 1
+player4 current hand is 4 1 2 3
 player4 draws a 4 from deck 4
-player4 discards a 2 to deck 1
-player4 current hand is 4 1 2 4
-player4 draws a 5 from deck 4
 player4 discards a 1 to deck 1
-player4 current hand is 4 2 4 5
-player4 draws a 6 from deck 4
-player4 discards a 2 to deck 1
-player4 current hand is 4 4 5 6
-player4 draws a 7 from deck 4
-player4 discards a 5 to deck 1
-player4 current hand is 4 4 6 7
-player1 has informed player4 that player1 has won
+player4 current hand is 4 2 3 4
+player2 has informed player4 that player2 has won
 player4 exits
-player4 final hand: 4 4 6 7
+player4 final hand: 4 2 3 4
