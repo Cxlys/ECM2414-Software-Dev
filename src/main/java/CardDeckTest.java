@@ -33,6 +33,33 @@ public class CardDeckTest {
         decklist = null;
         carddeck = null;
     }
+
+    @Test
+    public void CardDeckInstantiatonTest(){
+        File logFile = new File("deck1_output.txt");
+        logFile.delete();
+        carddeck=null;
+        carddeck = new CardDeck(decklist, 1);
+        try (BufferedReader reader = new BufferedReader(new FileReader(logFile))) {
+            String output = reader.readLine();
+            Assert.assertEquals(null, output);
+        } catch (IOException e) {
+            Assert.fail();
+        }try (FileWriter writer = new FileWriter(logFile)){
+            writer.write("a");
+        } catch (IOException e) {
+            Assert.fail();
+        }
+        carddeck=null;
+        carddeck = new CardDeck(decklist, 1);
+        try (BufferedReader reader = new BufferedReader(new FileReader(logFile))) {
+            String output = reader.readLine();
+            Assert.assertEquals(null, output);
+        } catch (IOException e) {
+            Assert.fail();
+        }
+    }
+    
     @Test
     public void getIndexTest(){
         Assert.assertEquals(1, carddeck.getIndex());
