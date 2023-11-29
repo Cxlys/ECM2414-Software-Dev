@@ -75,12 +75,12 @@ public class Player extends Thread {
         }
     }
 
-    CardHand hand;
-    int denomination;
-    File file;
+    final CardHand hand;
+    final int denomination;
+    final File file;
 
     static volatile Integer winningPlayerID = null;
-    StringBuilder gameUpdateStream = new StringBuilder();
+    final StringBuilder gameUpdateStream = new StringBuilder();
     
     public Player(ThreadGroup group, ArrayList<Card> hand, int denomination) {
         super(group, String.valueOf(denomination));

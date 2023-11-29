@@ -1,5 +1,5 @@
 public class Card {
-    int value;
+    final int value;
     int roundCount = 0;
 
     public Card(int value) {
