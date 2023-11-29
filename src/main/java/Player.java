@@ -247,10 +247,18 @@ public class Player extends Thread {
         hand.getRightDeck().printLogFile();
     }
 
+    /**
+     * This method sets the left deck of the player's CardHand.
+     * @param leftNode
+     */
     public void setLeftDeck(CardDeck leftNode) {
         hand.leftDeck = leftNode;
     }
 
+    /**
+     * This method sets the right deck of the player's CardHand.
+     * @param rightNode
+     */
     public void setRightDeck(CardDeck rightNode) {
         hand.rightDeck = rightNode;
     }

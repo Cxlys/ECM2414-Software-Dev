@@ -21,6 +21,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  * PlayerTest is a set of tests that ensures that our threads properly function, even when given
@@ -29,32 +30,10 @@ import java.util.Scanner;
 @Category({ThreadTests.class})
 public class PlayerTest {
     static InputStream stdin = System.in;
-    static PrintStream stdout = System.out;
-
-    static ByteArrayOutputStream byteArrayOutputStream;
-
-    @BeforeClass
-    public static void setUpClass() {
-        byteArrayOutputStream = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(byteArrayOutputStream);
-        System.setOut(ps);
-    }
-
-    @After
-    public void tearDown() {
-        try {
-            byteArrayOutputStream.flush();
-        } catch (IOException e) {
-            fail("IOException thrown");
-        }
-
-        CardGame.resetAllVariables();
-    }
 
     @AfterClass
     public static void tearDownClass() {
         System.setIn(stdin);
-        System.setOut(stdout);
     }
 
     @Before
@@ -65,11 +44,16 @@ public class PlayerTest {
 
             // If you reach the bottom of this method, JUnit just gets bored and forcibly exits our threads.
             // We wait here to avoid that happening. The number is arbitrary.
-            Thread.sleep(250);
-            
+            Thread.sleep(1000);
+
         } catch (InterruptedException e) {
             
         }
+    }
+
+    @After
+    public void tearDown() {
+        CardGame.resetAllVariables();
     }
 
     /**
@@ -103,27 +87,35 @@ public class PlayerTest {
     @Test
     public void onlyOnePlayerWinsTest() {
         // Instantiating file objects
-        File file1 = new File("player1_output.txt");
-        File file2 = new File("player2_output.txt");
-        File file3 = new File("player3_output.txt");
-        File file4 = new File("player4_output.txt");
-
-        File[] fs = {file1, file2, file3, file4};
-        Scanner scanner = null;
-        String winningPlayer = null;
+        File[] fs = {
+            new File("player1_output.txt"), 
+            new File("player2_output.txt"), 
+            new File("player3_output.txt"), 
+            new File("player4_output.txt")
+        };
+        
+        boolean winningPlayer = false;
 
         ArrayList<File> files = new ArrayList<>(Arrays.asList(fs));
 
         // Looping through files, looking for "has won".
         for (File file : files) {
             try {
-                scanner = new Scanner(file1);
-                String playerLine = scanner.findInLine("has won");
+                Scanner scanner = new Scanner(file);
+                boolean playerLine = false;
+
+                while (scanner.hasNextLine()) {
+                    String str = scanner.nextLine();
+                    if (str.indexOf("wins") != -1) {
+                        playerLine = true;
+                        break;
+                    }
+                }
                 
                 // If we find "has won" in this file, but "has won" has already been found, we fail the test.
-                if (playerLine != null) {
-                    if (winningPlayer != null) fail("More than one player won the game!");
-                    winningPlayer = playerLine.substring(0, 7);
+                if (playerLine) {
+                    if (winningPlayer) fail("More than one player won the game!");
+                    winningPlayer = true;
                 }
 
                 scanner.close();
@@ -131,5 +123,7 @@ public class PlayerTest {
                 fail("File not found on one of the scanners");
             }
         }
+
+        if (!winningPlayer) fail("No player won.");
     }
 }

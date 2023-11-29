@@ -78,7 +78,7 @@ public class PlayerWinsInstantlyTest {
      */
     @Test
     public void gameEndsAsExpectedTest() {
-        String winString =  "player1 initial hand 1 1 1 1" +
+        String expected =  "player1 initial hand 1 1 1 1" +
                             "player1 wins" +
                             "player1 exits" +
                             "player1 final hand: 1 1 1 1";
@@ -93,7 +93,7 @@ public class PlayerWinsInstantlyTest {
             fail("IOException thrown");
         }
 
-        Assert.assertEquals(builder.toString(), winString);
+        Assert.assertEquals(builder.toString(), expected);
     }
 
     /**

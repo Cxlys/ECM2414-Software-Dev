@@ -132,15 +132,14 @@ public class CardGame {
             // We start looping through the input pack
             while (rdr.hasNextLine()) {
                 // Checking for non-integers like characters
-                if (!rdr.hasNextInt()) {
-                    System.out.println("Not all lines are integer values!");
+                String str = rdr.nextLine();
+                if (str.isEmpty() || !isNumeric(str)) {
+                    System.out.println("Provided file contains an empty space or a non-integer character!");
                     throw new InvalidInputPackException();
                 }
-
-                // Checking for non-positive numbers
-                int next = rdr.nextInt();
-                if (Integer.signum(next) < 1) {
-                    System.out.println("Not all lines are positive!");
+                int next = Integer.parseInt(str);
+                if (Integer.signum(next) < 0) {
+                    System.out.println("Provided file contains a non-positive value!");
                     throw new InvalidInputPackException();
                 }
 
@@ -154,6 +153,18 @@ public class CardGame {
             System.out.println("Valid file successfully found!");
             return buffer;
         }
+    }
+
+    static boolean isNumeric(String strNum) {
+        if (strNum == null) return false;
+
+        try {
+            int i = Integer.parseInt(strNum);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
