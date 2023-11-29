@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * CardDeck is a class used to store data on the decks that Players draw from.<br><br>
+ * It inherits from LinkedBlockingQueue to allow for direct operations on the data,
+ * and includes methods to allow for printing of the deck when complete.
+ */
 public class CardDeck extends LinkedBlockingQueue<Card>{
     final int index;
     final File logFile;
@@ -31,10 +36,17 @@ public class CardDeck extends LinkedBlockingQueue<Card>{
         }
     }
 
+    /**
+     * Gets the index of the deck.
+     * @return
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     * Prints the final value in the deck to the externally stored deck output file.
+     */
     void printLogFile() {
         try (FileWriter writer = new FileWriter(logFile)) {
             writer.append("deck" + index + " contents: " + this.toString());

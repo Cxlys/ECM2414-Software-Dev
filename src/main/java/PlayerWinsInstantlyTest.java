@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * PlayerWinsInstantlyTest is a set of tests created to ensure correct functionality in the case
+ * that a player wins the game immediately.
+ */
 @Category({ThreadTests.class})
 public class PlayerWinsInstantlyTest {
     Player player;
@@ -21,6 +25,7 @@ public class PlayerWinsInstantlyTest {
 
     @Before
     public void setUpClass() {
+        // Setting up the dummy Player object
         Card c1 = new Card(1);
         Card c2 = new Card(1);
         Card c3 = new Card(1);
@@ -34,6 +39,7 @@ public class PlayerWinsInstantlyTest {
         player.setRightDeck(new CardDeck(cards, 2));
         player.run();
 
+        // Attempting to read the file created by player.run() after a win condition was assumedly hit
         File logFileLocation = new File("player1_output.txt");
 
         try {
@@ -54,6 +60,9 @@ public class PlayerWinsInstantlyTest {
         }
     }
 
+    /**
+     * This test makes sure that the winning thread prints to a file properly.
+     */
     @Test 
     public void winningThreadPrintsProperlyTest() {
         try {
@@ -64,6 +73,9 @@ public class PlayerWinsInstantlyTest {
         }
     }
 
+    /**
+     * This test makes sure that the game ends as expected, with the player immediately winning.
+     */
     @Test
     public void gameEndsAsExpectedTest() {
         String winString =  "player1 initial hand 1 1 1 1" +
@@ -84,6 +96,9 @@ public class PlayerWinsInstantlyTest {
         Assert.assertEquals(builder.toString(), winString);
     }
 
+    /**
+     * This test makes sure that toString works effectively, by testing the number output after "initial hand".
+     */
     @Test
     public void toStringTest() {
         try {
