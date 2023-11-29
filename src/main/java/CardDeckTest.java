@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,10 +46,32 @@ public class CardDeckTest {
         // Finding and deleting the output file to ensure there is none in the file system.
         File logFile = new File("deck1_output.txt");
         logFile.delete();
-        cardDeck = new CardDeck(decklist, 1);
+        cardDeck=null;
 
-        // Reading the cardDeck output file to ensure that a file has been created.
-        Assert.assertTrue(logFile.exists());
+        //Creating the new carDeck and making sure it is empty
+        cardDeck = new CardDeck(decklist, 1);
+        try (BufferedReader reader = new BufferedReader(new FileReader(logFile))) {
+            String output = reader.readLine();
+            Assert.assertEquals(null, output);
+        } catch (IOException e) {
+            Assert.fail();
+
+        //Writing in the file to later test it creates a new empty file    
+        }try (FileWriter writer = new FileWriter(logFile)){
+            writer.write("a");
+        } catch (IOException e) {
+            Assert.fail();
+        }
+
+        //Checking that it creates a new empty file if one already exists.
+        cardDeck=null;
+        cardDeck = new CardDeck(decklist, 1);
+        try (BufferedReader reader = new BufferedReader(new FileReader(logFile))) {
+            String output = reader.readLine();
+            Assert.assertEquals(null, output);
+        } catch (IOException e) {
+            Assert.fail();
+        }
     }
 
     /**
