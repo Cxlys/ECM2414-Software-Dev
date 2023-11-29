@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class CardDeck extends LinkedBlockingQueue<Card>{
-    int index;
-    File logFile;
+    final int index;
+    final File logFile;
     
     public CardDeck (ArrayList<Card> cards, int index){
         super(cards);
